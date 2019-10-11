@@ -7,17 +7,19 @@ class ApplicationController < ActionController::Base
   
    # ページ出力前に1ヶ月分のデータの存在を確認・セット。
   def set_one_month
-    @first_day = Date.current.beginning_of_month
+    @first_day = params[:date].nil? ?
+    Date.current.beginning_of_month : params[:date].to_date
     @last_day = @first_day.end_of_month
     one_month = [*@first_day..@last_day] #対象の日数を代入
     # ユーザーに紐付く一ヶ月分のレコードを検索し取得します。
-    @attendances = @user.attendances.where(worked_on: @first_day..@last_day)
+    @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     
     unless one_month.count == @attendances.count
       ActiveRecord::Base.transaction do
         # 繰り返し処理により、1ヶ月分の勤怠データを生成します。
         one_month.each { |day| @user.attendances.create!(worked_on: day) }
       end
+      @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     end
     
   rescue ActiveRecord::RecordInvalid
