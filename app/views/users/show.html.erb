@@ -2,7 +2,7 @@
 <div>
   <table class="table table-bordered table-condensed user-table">
     <tr>
-      <td><%= l(@first_day,  format: :middle) %>時間管理表</td>
+      <td>【<%= l(@first_day,  format: :middle) %>】時間管理表</td>
       <td>指定勤務時間:<%= format_basic_info(@user.work_time) %></td>
       <td>基本時間:<%= format_basic_info(@user.basic_time) %></td>
       <td>月初日:<%= l(@first_day, format: :short) %></td>
@@ -48,7 +48,7 @@
             <% end %>
           </td>
           <td><%= l(day.started_at, format: :time) if day.started_at.present? %></td>
-          <td></td>
+          <td><%= l(day.finished_at, format: :time) if day.finished_at.present? %></td>
           <td></td>
           <td></td>
         </tr>
