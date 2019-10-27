@@ -24,11 +24,13 @@ class AttendancesController < ApplicationController
         flash[:danger] = UPDATE_ERROR_MSG
       end
     end
+    
     redirect_to @user
   end
   
   
   def edit_one_month
+    
   end
   
   def update_one_month
