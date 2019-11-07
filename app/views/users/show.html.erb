@@ -62,8 +62,8 @@
           </td>
           
           <!--出勤時間登録-->
-          <td><%= l(day.started_at, format: :hour) if day.started_at.present? %></td>
-          <td><%= l(day.started_at, format: :min) if day.started_at.present? %></td>
+          <td><%= day.started_at.hour if day.started_at.present? %></td>
+          <td><%= day.started_at.min.floor_to(15) if day.started_at.present? %></td>
           <!--勤怠登録-->
           <td>
             <% if btn_text = attendance_state(day) %>
@@ -71,8 +71,8 @@
             <% end %>
           </td>
           <!--退勤時間登録-->
-          <td><%= l(day.finished_at, format: :hour) if day.finished_at.present? %></td>
-          <td><%= l(day.finished_at, format: :min) if day.finished_at.present? %></td>
+          <td><%= day.finished_at.hour if day.finished_at.present? %></td>
+          <td><%= day.finished_at.min.floor_to(15) if day.finished_at.present? %></td>
           <td></td>
           <!--在社時間-->
           <td>
@@ -92,12 +92,13 @@
         <td colspan="2">累計日数</td>
         <td colspan="2">総合勤務時間</td>
         <td colspan="2">累計在社時間</td>
-        <td colspan="2"></td>
+        <td colspan="4"> </td>
       </tr>
       <tr>
         <td colspan="2"><%= @attendances.count %></td>
         <td colspan="2"><%= format_basic_info(@user.work_time).to_f * @worked_sum %></td>
         <td colspan="2"><%= format("%.2f", @total_working_times.to_f) %></td>
+        <td colspan="4"> </td>
       </tr>
       
     </tfoor>

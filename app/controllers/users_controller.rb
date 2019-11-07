@@ -5,8 +5,9 @@ class UsersController < ApplicationController
   before_action :admin_user, only: [:destroy, :edit_basic_info, :update_basic_info]
   before_action :set_one_month, only: :show
   
+  
   def index
-    @users = User.paginate(page: params[:page])
+    @users = query.order(:id).page(params[:page])
   end
   
   def show
@@ -92,5 +93,17 @@ class UsersController < ApplicationController
       redirect_to root_url unless current_user.admin?
     end
     
+    # def search
+    # #Viewのformで取得したパラメータをモデルに渡す
+    #   @users = User.search(params[:search])
+    # end
+    
+    def query
+        if params[:user].present? && params[:user][:name]
+          User.where('name LIKE ?', "%#{params[:user][:name]}%")
+        else
+          User.all
+        end
+    end
 end
     

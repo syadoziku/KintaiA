@@ -42,4 +42,13 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
   
+  
+  # def self.search(search) 
+  #   if search
+  #     where(['username LIKE ?', "%#{search}%"]) #検索とuseanameの部分一致を表示。
+  #   else
+  #     all
+  #   end
+  # end
+  
 end
