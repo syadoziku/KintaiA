@@ -1,6 +1,6 @@
 <% provide(:title, 'All Users') %>
 
-<% if @user.present? %>
+<% if params[:user].present? && params[:user][:name] %>
   <h1>検索結果</h1>
 <% else %>
   <h1>ユーザー一覧</h1>
@@ -36,10 +36,10 @@
           <% end %>
         </td>
 
-        <td class="center">
+        <td class="center" >
           <% if current_user.admin? && !current_user?(user) %>
-            <%= link_to "基本情報編集", edit_basic_info_user_path(user) %>
-            <%= link_to "削除", user, method: :delete,
+            ｜<%= link_to "基本情報編集", edit_basic_info_user_path(user) %>
+            ｜<%= link_to "削除", user, method: :delete,
                 data: { confirm: "削除してよろしいですか？" } %>
           <% end %>
         </td>
