@@ -52,7 +52,7 @@
         <th rowspan="2">在社時間</th>
         <th rowspan="2">備考</th>
         <th colspan="2">終了予定時間</th>
-        <th rowspan="2">時間外勤務</th>
+        <th rowspan="2">時間外時間</th>
         <th rowspan="2">業務処理内容</th>
         <th rowspan="2">指示者確認☑︎</th>
       </tr>
@@ -127,13 +127,17 @@
         <td colspan="2">累計日数</td>
         <td colspan="2">総合勤務時間</td>
         <td colspan="2">累計在社時間</td>
-        <td colspan="4"> </td>
+        <td colspan="8"></td>
+        <td colspan="2"rowspan="2">所属長承認　未
+          <br>
+          <br><%= link_to "申請", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-info" %>
+        </td>
       </tr>
       <tr>
         <td colspan="2"><%= @attendances.count %></td>
         <td colspan="2"><%= format_basic_info(@user.work_time).to_f * @worked_sum %></td>
         <td colspan="2"><%= format("%.2f", @total_working_times.to_f) %></td>
-        <td colspan="4"> </td>
+        <td colspan="8"></td>
       </tr>
       
     </tfoor>
