@@ -7,44 +7,26 @@
 <% end %>
 
 
-<div class="col-md-10 col-md-offset-1">
-  
-  <div class="name_form">
-    <%= form_with model: User.new, method: :get, local: true do |form| %>
-    <%= form.label "ユーザー名検索" %><br>
-    <%= form.text_field :name %>
-    <%= form.submit "検索", class: "btn btn-info" %>
-    <% end %>
-  </div>
-    
- <%= will_paginate %>
-  <table class="table table-condensed table-hover" id="table-users">
-    <thead>
-      <tr>
-        <th><%= User.human_attribute_name :name %></th>
-        <th></th>
-      </tr>
-    </thead>
-    
-    <% @users.each do |user| %>
-      <tr>
-        <td>
-          <% if current_user.admin? %>
-            <%= link_to user.name, user %>
-          <% else %>
-            <%= user.name %>
-          <% end %>
-        </td>
-
-        <td class="center" >
-          <% if current_user.admin? && !current_user?(user) %>
-            ｜<%= link_to "基本情報編集", edit_basic_info_user_path(user) %>
-            ｜<%= link_to "削除", user, method: :delete,
-                data: { confirm: "削除してよろしいですか？" } %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-  <%= will_paginate %>
-</div>
+<form id='csv' class="form-horizontal">
+    <div class="form-group">
+      <div class="col-md-2">
+            <input onclick="$('#file_input').click();" 
+                class="btn btn-default btn-sm btn-block open" type="button"
+                value="ファイルを選択">
+        </div>
+        <div class="col-md-4">
+            <input id="fake_input_file" onclick="$('#file_input').click();" 
+                readonly="readonly" type="text" value="" class="form-control input-sm" 
+                maxlength="12" >
+            <input id="file_input" onchange="$('#fake_input_file').val(files[0].name)"
+                 style="display: none;" class="form-control input-sm" type="file">
+        </div>
+        
+    </div>
+    <div class="form-group">
+        <div class="col-md-6 col-md-push">
+            <input type="button" class="btn btn-primary btn-sm btn-block import_csv"
+                value="CSVをインポート" id="import_csv">
+        </div>
+    </div>
+</form>
