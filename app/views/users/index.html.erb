@@ -13,7 +13,7 @@
             <input onclick="$('#file_input').click();" 
                 class="btn btn-default btn-sm btn-block open" type="button"
                 value="ファイルを選択">
-        </div>
+      </div>
         <div class="col-md-4">
             <input id="fake_input_file" onclick="$('#file_input').click();" 
                 readonly="readonly" type="text" value="" class="form-control input-sm" 
@@ -30,3 +30,40 @@
         </div>
     </div>
 </form>
+
+
+<div class="col-md-10 col-md-offset-1">
+  
+  
+    
+ <%= will_paginate %>
+  <table class="table table-condensed table-hover" id="table-users">
+    <thead>
+      <tr>
+        <th><%= User.human_attribute_name :name %></th>
+        <th></th>
+      </tr>
+    </thead>
+    
+    <% @users.each do |user| %>
+      <tr>
+        <td>
+          <% if current_user.admin? %>
+            <%= link_to user.name, user %>
+          <% else %>
+            <%= user.name %>
+          <% end %>
+        </td>
+
+        <td class="center" >
+          <% if current_user.admin? && !current_user?(user) %>
+        <br>｜<%= link_to "削除", user, method: :delete, class: "btn btn-info",
+                data: { confirm: "削除してよろしいですか？" } %>
+        <br><%= link_to "編集", edit_basic_info_user_path(user), class: "btn btn-primary" %>
+            <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <%= will_paginate %>
+</div>
