@@ -6,6 +6,12 @@ class UsersController < ApplicationController
   before_action :set_one_month, only: :show
   before_action :admin_or_correct_user, only: :show
   
+  
+  def list
+    @users = query.order(:id).page(params[:page])
+  end
+  
+  
   def index
     @users = query.order(:id).page(params[:page])
   end
